@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+
+#root {
+  margin: 0 auto;
+}
+body{
+  font-family: "Nunito Sans", sans-serif;
+
+}
+
+
+
+/* App.css */
+
+.ant-table-wrapper {
+  flex: 1;
+  overflow: hidden;
+}
+
+.ant-table-body {
+  overflow-y: auto; /* Enable scrolling for table body */
+}
+
+.ant-table-body::-webkit-scrollbar {
+  width: 0 !important; /* Hide scrollbar for Chrome, Safari, and Opera */
+}
+
+.ant-table-body {
+  -ms-overflow-style: none;  /* Hide scrollbar for Internet Explorer and Edge */
+  scrollbar-width: none;  /* Hide scrollbar for Firefox */
+}
+/* custom-styles.css */
+.custom-tab-panel .ant-tabs-content-holder {
+  background-color: #f0f2f5; /* Change this color to your desired background color */
+}
+
+.custom-tab-panel .ant-tabs-tab {
+  color: #1890ff; /* Change this color to your desired tab text color */
+}
+
+.custom-tab-panel .ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #ff4d4f; /* Change this color to your desired active tab text color */
+}
