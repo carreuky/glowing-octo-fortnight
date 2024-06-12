@@ -1,135 +1,104 @@
 import React, { useRef, useState } from "react";
 import { SearchOutlined } from "@ant-design/icons";
-import { Button, Input, Space, Table } from "antd";
 import Highlighter from "react-highlight-words";
-const data = [
-    {
-      key: "1",
-      name: "John Brown",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-    },
-    {
-      key: "2",
-      name: "Joe Black",
-      age: 42,
-      address: "London No. 1 Lake Park",
-    },
-    {
-      key: "3",
-      name: "Jim Green",
-      age: 32,
-      address: "Sydney No. 1 Lake Park",
-    },
-    {
-      key: "4",
-      name: "Jim Red",
-      age: 32,
-      address: "London No. 2 Lake Park",
-    },
-    {
-      key: "5",
-      name: "Jake White",
-      age: 28,
-      address: "New York No. 3 Lake Park",
-    },
-    {
-      key: "6",
-      name: "Jane Doe",
-      age: 35,
-      address: "London No. 4 Lake Park",
-    },
-    {
-      key: "7",
-      name: "Judy Smith",
-      age: 30,
-      address: "Sydney No. 5 Lake Park",
-    },
-    {
-      key: "8",
-      name: "Jack Black",
-      age: 29,
-      address: "New York No. 6 Lake Park",
-    },
-    {
-      key: "9",
-      name: "Jim Blue",
-      age: 34,
-      address: "London No. 7 Lake Park",
-    },
-    {
-      key: "10",
-      name: "James Brown",
-      age: 40,
-      address: "Sydney No. 8 Lake Park",
-    },
-    {
-      key: "11",
-      name: "Jenny Green",
-      age: 33,
-      address: "New York No. 9 Lake Park",
-    },
-    {
-      key: "12",
-      name: "Jessica Black",
-      age: 31,
-      address: "London No. 10 Lake Park",
-    },
-    {
-      key: "13",
-      name: "Jeremy Red",
-      age: 32,
-      address: "Sydney No. 11 Lake Park",
-    },
-    {
-      key: "14",
-      name: "Jasper White",
-      age: 36,
-      address: "New York No. 12 Lake Park",
-    },
-    {
-      key: "15",
-      name: "Jillian Brown",
-      age: 27,
-      address: "London No. 13 Lake Park",
-    },
-    {
-      key: "16",
-      name: "Joel Green",
-      age: 41,
-      address: "Sydney No. 14 Lake Park",
-    },
-    {
-      key: "17",
-      name: "Joyce Black",
-      age: 39,
-      address: "New York No. 15 Lake Park",
-    },
-    {
-      key: "18",
-      name: "Javier Red",
-      age: 38,
-      address: "London No. 16 Lake Park",
-    },
-    {
-      key: "19",
-      name: "Jocelyn White",
-      age: 26,
-      address: "Sydney No. 17 Lake Park",
-    },
-    {
-      key: "20",
-      name: "Jason Brown",
-      age: 37,
-      address: "New York No. 18 Lake Park",
-    },
-  ];
-  
-  
+import {
+  Form,
+  Input,
+  InputNumber,
+  Popconfirm,
+  Table,
+  Typography,
+  Button,
+  Space,
+} from "antd";
+
+const originData = [];
+for (let i = 1; i <= 40; i++) {
+  originData.push({
+    key: i.toString(),
+    product: `Product ${i}`,
+    quantity: Math.floor(Math.random() * 100) + 1, // Random quantity between 1 and 100
+    buying_price: Math.floor(Math.random() * 100) + 1, // Random buying price between 1 and 100
+    selling_price: Math.floor(Math.random() * 100) + 101, // Random selling price between 101 and 200
+  });
+}
+const EditableCell = ({
+  editing,
+  dataIndex,
+  title,
+  inputType,
+  record,
+  index,
+  children,
+  ...restProps
+}) => {
+  const inputNode = inputType === "number" ? <InputNumber /> : <Input />;
+  return (
+    <td {...restProps}>
+      {editing ? (
+        <Form.Item
+          name={dataIndex}
+          style={{
+            margin: 0,
+          }}
+          rules={[
+            {
+              required: true,
+              message: `Please Input ${title}!`,
+            },
+          ]}
+        >
+          {inputNode}
+        </Form.Item>
+      ) : (
+        children
+      )}
+    </td>
+  );
+};
 const Products = () => {
+  const [form] = Form.useForm();
+  const [data, setData] = useState(originData);
+  const [editingKey, setEditingKey] = useState("");
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
+
+  const isEditing = (record) => record.key === editingKey;
+  const edit = (record) => {
+    form.setFieldsValue({
+      name: "",
+      age: "",
+      address: "",
+      ...record,
+    });
+    setEditingKey(record.key);
+  };
+  const cancel = () => {
+    setEditingKey("");
+  };
+  const save = async (key) => {
+    try {
+      const row = await form.validateFields();
+      const newData = [...data];
+      const index = newData.findIndex((item) => key === item.key);
+      if (index > -1) {
+        const item = newData[index];
+        newData.splice(index, 1, {
+          ...item,
+          ...row,
+        });
+        setData(newData);
+        setEditingKey("");
+      } else {
+        newData.push(row);
+        setData(newData);
+        setEditingKey("");
+      }
+    } catch (errInfo) {
+      console.log("Validate Failed:", errInfo);
+    }
+  };
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
     setSearchText(selectedKeys[0]);
@@ -243,42 +212,101 @@ const Products = () => {
   });
   const columns = [
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-      width: "30%",
-      ...getColumnSearchProps("name"),
+      title: "Product",
+      dataIndex: "product",
+      key: "product",
+      // width: "30%",
+      ...getColumnSearchProps("product"),
+      editable: true,
     },
     {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
-      width: "20%",
-      sorter: (a, b) => a.age - b.age, // Enable sorting for Age
+      title: "Quantity",
+      dataIndex: "quantity",
+      key: "quantity",
+      // width: "20%",
+      sorter: (a, b) => a.quantity - b.quantity, // Enable sorting
       sortDirections: ["descend", "ascend"],
-      ...getColumnSearchProps("age"),
     },
     {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
-      ...getColumnSearchProps("address"),
-      sorter: (a, b) => a.address.length - b.address.length,
-      sortDirections: ["descend", "ascend"],
+      title: "Buying Price",
+      dataIndex: "buying_price",
+      key: "buying_price",
+      editable: true,
+    },
+    {
+      title: "Selling Price",
+      dataIndex: "selling_price",
+      key: "selling_price",
+      editable: true,
+    },
+    {
+      title: "operation",
+      dataIndex: "operation",
+      render: (_, record) => {
+        const editable = isEditing(record);
+        return editable ? (
+          <span>
+            <Typography.Link
+              onClick={() => save(record.key)}
+              style={{
+                marginRight: 8,
+              }}
+            >
+              Save
+            </Typography.Link>
+            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
+              <a>Cancel</a>
+            </Popconfirm>
+          </span>
+        ) : (
+          <Typography.Link
+            disabled={editingKey !== ""}
+            onClick={() => edit(record)}
+          >
+            Edit
+          </Typography.Link>
+        );
+      },
     },
   ];
+
+  const mergedColumns = columns.map((col) => {
+    if (!col.editable) {
+      return col;
+    }
+    return {
+      ...col,
+      onCell: (record) => ({
+        record,
+        inputType: col.dataIndex === "quantity" || col.dataIndex === "buying_price" || col.dataIndex === "selling_price" ? "number" : "text",
+        dataIndex: col.dataIndex,
+        title: col.title,
+        editing: isEditing(record),
+      }),
+    };
+  });
   return (
-    <Table
-      columns={columns}
-      dataSource={data}
-      pagination={{
-        pageSizeOptions: ["10",'15','20'],
-        showSizeChanger: true,
-        defaultPageSize: 10,
-      }}
-        scroll={{ y: 'calc(100vh - 150px)' }}
-      sticky
-    />
+    <Form form={form} component={false}>
+      <Table
+        components={{
+          body: {
+            cell: EditableCell,
+          },
+        }}
+        bordered
+        dataSource={data}
+        columns={mergedColumns}
+        rowClassName="editable-row"
+        pagination={{
+          onChange: cancel,
+          pageSizeOptions: ["10", "15", "20"],
+          showSizeChanger: true,
+          defaultPageSize: 10,
+        }}
+        scroll={{ y: "calc(100vh - 150px)" }}
+        sticky
+      />
+    </Form>
   );
 };
 export default Products;
