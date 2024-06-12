@@ -1,50 +1,56 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo,useContext } from "react";
 import { BiCartAdd } from "react-icons/bi";
 import { DatePicker } from "antd";
 import dayjs from "dayjs";
 import { Table, Button, InputNumber, Input, Form ,Radio} from "antd";
 import { FaPlus, FaMinus } from "react-icons/fa";
+import { CartContext } from "../context/CartProvider";
+
+
 
 export default function Cart() {
   //   const [selectedDate, setSelectedDate] = useState(dayjs());
 
-  const [cartItems, setCartItems] = useState([
-    {
-      key: 0,
-      product: "Product 1",
-      quantity: 2,
-      rate: 50,
-      total: 100,
-    },
-    {
-      key: 1,
-      product: "Product 2",
-      quantity: 1,
-      rate: 30,
-      total: 30,
-    },
-    {
-      key: 2,
-      product: "Product 3",
-      quantity: 4,
-      rate: 25,
-      total: 100,
-    },
-  ]);
+  // const [cartItems, setCartItems] = useState([
+  //   {
+  //     key: 0,
+  //     product: "Product 1",
+  //     quantity: 2,
+  //     selling_price: 50,
+  //     total: 100,
+  //   },
+  //   {
+  //     key: 1,
+  //     product: "Product 2",
+  //     quantity: 1,
+  //     selling_price: 30,
+  //     total: 30,
+  //   },
+  //   {
+  //     key: 2,
+  //     product: "Product 3",
+  //     quantity: 4,
+  //     selling_price: 25,
+  //     total: 100,
+  //   },
+  // ]);
+  const { cart, setCart } = useContext(CartContext);
+
+  console.log(cart)
 
   const handleDelete = (key) => {
-    setCartItems(cartItems.filter((item) => item.key !== key));
+    setCart(cart.filter((item) => item.key !== key));
   };
 
   const handleIncreaseQuantity = (key) => {
-    setCartItems(
-      cartItems.map((item) => {
+    setCart(
+      cart.map((item) => {
         if (item.key === key) {
           const newQuantity = item.quantity + 1;
           return {
             ...item,
             quantity: newQuantity,
-            total: newQuantity * item.rate,
+            total: newQuantity * item.selling_price,
           };
         }
         return item;
@@ -53,14 +59,14 @@ export default function Cart() {
   };
 
   const handleDecreaseQuantity = (key) => {
-    setCartItems(
-      cartItems.map((item) => {
+    setCart(
+      cart.map((item) => {
         if (item.key === key && item.quantity > 1) {
           const newQuantity = item.quantity - 1;
           return {
             ...item,
             quantity: newQuantity,
-            total: newQuantity * item.rate,
+            total: newQuantity * item.selling_price,
           };
         }
         return item;
@@ -69,14 +75,14 @@ export default function Cart() {
   };
 
   const subtotal = useMemo(() => {
-    return cartItems.reduce((sum, item) => sum + item.total, 0);
-  }, [cartItems]);
+    return cart.reduce((sum, item) => sum + item.total, 0);
+  }, [cart]);
 
   const columns = [
     {
       title: "Product",
-      dataIndex: "product",
-      key: "product",
+      dataIndex: "name",
+      key: "name",
     },
     {
       title: "Quantity",
@@ -104,8 +110,8 @@ export default function Cart() {
     },
     {
       title: "Rate",
-      dataIndex: "rate",
-      key: "rate",
+      dataIndex: "selling_price",
+      key: "selling_price",
     },
     {
       title: "Total",
@@ -136,7 +142,7 @@ export default function Cart() {
           <BiCartAdd />
         </span>
         <span className="bg-color2 text-white py-1 px-1.5 rounded ">
-          {cartItems.length}
+          {cart.length}
         </span>
       </h1>
       {/* <div className="bg-white py-4">
@@ -153,7 +159,7 @@ export default function Cart() {
 
       <div className="shadow-lg">
         {" "}
-        <Table columns={columns} dataSource={cartItems} pagination={false} />
+        <Table columns={columns} dataSource={cart} pagination={false} />
       </div>
       <h2 className="mt-8 mb-3">
         <strong className="text-2xl">

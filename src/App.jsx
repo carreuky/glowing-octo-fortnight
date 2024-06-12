@@ -11,7 +11,6 @@ import Layout from "./components/layout/Layout";
 import AddProduct from "./pages/AddProduct";
 import SellProduct from "./pages/SellProduct";
 
-
 function App() {
   return (
     <Routes>

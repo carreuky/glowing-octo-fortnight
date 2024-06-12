@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { SearchOutlined } from "@ant-design/icons";
 import Highlighter from "react-highlight-words";
+import originData from "../../api/ProductData";
 import {
   Form,
   Input,
@@ -12,16 +13,6 @@ import {
   Space,
 } from "antd";
 
-const originData = [];
-for (let i = 1; i <= 40; i++) {
-  originData.push({
-    key: i.toString(),
-    product: `Product ${i}`,
-    quantity: Math.floor(Math.random() * 100) + 1, // Random quantity between 1 and 100
-    buying_price: Math.floor(Math.random() * 100) + 1, // Random buying price between 1 and 100
-    selling_price: Math.floor(Math.random() * 100) + 101, // Random selling price between 101 and 200
-  });
-}
 const EditableCell = ({
   editing,
   dataIndex,
@@ -63,6 +54,10 @@ const Products = () => {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
+
+  // const handleDelete = (key) => {
+  //   setCart(cart.filter((item) => item.key !== key));
+  // };
 
   const isEditing = (record) => record.key === editingKey;
   const edit = (record) => {
@@ -213,10 +208,10 @@ const Products = () => {
   const columns = [
     {
       title: "Product",
-      dataIndex: "product",
-      key: "product",
+      dataIndex:"name",
+      key: "name",
       // width: "30%",
-      ...getColumnSearchProps("product"),
+      ...getColumnSearchProps("name"),
       editable: true,
     },
     {

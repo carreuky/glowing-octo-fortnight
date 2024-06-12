@@ -1,63 +1,68 @@
-import React,{useState} from "react";
-import { Table,  Input,Button } from 'antd';
-
+import React, { useState, useContext } from "react";
+import { Table, Input, Button } from "antd";
+import originData from "../api/ProductData";
+import { CartContext } from "../context/CartProvider";
 
 export default function GetProducts() {
   const [searchText, setSearchText] = useState("");
   const { Search } = Input;
+  const { addToCart } = useContext(CartContext);
 
-  const products = [
-    { key: 1, name: 'Product 1', quantity: 10 },
-    { key: 2, name: 'Product 2', quantity: 20 },
-    { key: 3, name: 'Product 3', quantity: 30 },
-    { key: 4, name: 'Product 4', quantity: 15 },
-    { key: 5, name: 'Product 5', quantity: 25 },
-    { key: 6, name: 'Product 6', quantity: 35 },
-    { key: 7, name: 'Product 7', quantity: 40 },
-    { key: 8, name: 'Product 8', quantity: 45 },
-    { key: 9, name: 'Product 9', quantity: 50 },
-    { key: 10, name: 'Product 10', quantity: 60 },
-  ];
+  const products = originData;
 
   const columns = [
     {
-      title: 'Product Name',
-      dataIndex: 'name',
-      key: 'name',
+      title: "Product Name",
+      dataIndex: "name",
+      key: "name",
     },
     {
-      title: 'Quantity',
-      dataIndex: 'quantity',
-      key: 'quantity',
+      title: "Quantity",
+      dataIndex: "quantity",
+      key: "quantity",
     },
     {
-      title: 'Action',
-      key: 'action',
+      title: "Action",
+      key: "action",
       render: (text, record) => (
-        <Button type="primary">
+        <Button type="primary" onClick={() => addToCart(record)}>
           Add to Cart
         </Button>
       ),
     },
-]
-  const filteredProducts = products.filter(product =>
+  ];
+
+  const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchText.toLowerCase())
   );
+
   return (
-    <div className="md:mt-16 shadow-lg">
-      <div className="container mx-auto p-4">
+    <div className="md:mt-16 shadow-lg space-y-2 px-4">
+      <div className="container mx-auto ">
+        <p className="text-default font-semibold pb-2">
+          Search product to add to cart.
+        </p>
         <Search
           placeholder="Search products"
           onChange={(e) => setSearchText(e.target.value)}
-        //   style={{ marginBottom: 16 }}
         />
-        <Table
-          columns={columns}
-          dataSource={filteredProducts}
-          pagination={{
-            defaultPageSize: 4,
-          }}
+        {searchText ? (
+          <Table
+            columns={columns}
+            dataSource={filteredProducts}
+            pagination={{
+              defaultPageSize: 4,
+            }}
           />
+        ) : (
+          <div className="flex items-center justify-center text-color2">
+            <img
+              src="/svg/search.svg"
+              alt="search"
+              className="h-32 sm:h-96 m-4"
+            />
+          </div>
+        )}
       </div>
     </div>
   );
