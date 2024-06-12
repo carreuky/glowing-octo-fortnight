@@ -25,7 +25,7 @@ export default function GetProducts() {
       title: "Action",
       key: "action",
       render: (text, record) => (
-        <Button type="primary" onClick={() => addToCart(record)}>
+        <Button type="primary" className="bg-default" onClick={() => addToCart(record)}>
           Add to Cart
         </Button>
       ),
