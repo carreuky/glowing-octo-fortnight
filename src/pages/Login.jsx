@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export default function Login() {
   return (
     <section
-      className="flex min-h-screen items-center justify-center p-8 "
+      className="flex h-screen items-center justify-center p-4 "
       style={{
         backgroundImage: `url(/svg/wave_yellow.svg)`,
         backgroundSize: "cover",

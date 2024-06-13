@@ -1,29 +1,45 @@
 // GasAndElectricalForm.jsx
 import React from "react";
-import { Form, Input, InputNumber, Button, Tabs } from "antd";
+import { Form, Input, InputNumber, Button, Tabs, Select, Space } from "antd";
 
-const { TabPane } = Tabs;
+const { Option } = Select;
 
 const GasAndElectricalForm = () => {
+  const [form] = Form.useForm();
+
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
+    form.resetFields();
   };
 
-  return (
-    <Form
-      name="gas_and_electrical_form"
-      onFinish={onFinish}
-      layout="vertical"
-      style={{ maxWidth: "600px", margin: "0 auto" }}
-    >
-      <Tabs defaultActiveKey="1">
-        <TabPane tab="LPG Gas" key="1" className="">
-          <Form.Item
-            name={["lpg", "brand"]}
-            label="Brand Name"
-            rules={[{ required: true, message: "Please input the brand!" }]}
-          >
-            <Input />
+  const tabItems = [
+    {
+      key: "1",
+      label: "LPG Gas",
+      children: (
+        <>
+          <Form.Item label="Gas Details" required>
+            <Space.Compact style={{ width: "100%" }}>
+              <Form.Item
+                name={["lpg", "brand"]}
+                noStyle
+                rules={[{ required: true, message: "Please input the brand!" }]}
+              >
+                <Input placeholder="Brand" style={{ width: "50%" }} />
+              </Form.Item>
+              <Form.Item
+                name={["lpg", "kgs"]}
+                noStyle
+                rules={[
+                  { required: true, message: "Please select the quantity!" },
+                ]}
+              >
+                <Select placeholder="KGs" style={{ width: "50%" }}>
+                  <Option value="6kg">6 kg</Option>
+                  <Option value="13kg">13 kg</Option>
+                </Select>
+              </Form.Item>
+            </Space.Compact>
           </Form.Item>
           <Form.Item
             name={["lpg", "quantity"]}
@@ -50,22 +66,28 @@ const GasAndElectricalForm = () => {
           >
             <InputNumber min={0} style={{ width: "100%" }} />
           </Form.Item>
-        </TabPane>
-        <TabPane tab="Electricals" key="2">
+        </>
+      ),
+    },
+    {
+      key: "2",
+      label: "Electricals",
+      children: (
+        <>
           <Form.Item
             name={["electricals", "brand"]}
-            label="Brand Name"
+            label="Electronic Brand"
             rules={[{ required: true, message: "Please input the brand!" }]}
           >
             <Input />
           </Form.Item>
           <Form.Item
-            name={["lpg", "quantity"]}
+            name={["electricals", "quantity"]}
             label="Quantity"
             rules={[{ required: true, message: "Please input the quantity!" }]}
           >
             <InputNumber min={1} style={{ width: "100%" }} />
-          </Form.Item>
+            Button       </Form.Item>
           <Form.Item
             name={["electricals", "buyingPrice"]}
             label="Buying Price"
@@ -84,12 +106,24 @@ const GasAndElectricalForm = () => {
           >
             <InputNumber min={0} style={{ width: "100%" }} />
           </Form.Item>
-        </TabPane>
-      </Tabs>
+        </>
+      ),
+    },
+  ];
+
+  return (
+    <Form
+      form={form}
+      name="gas_and_electrical_form"
+      onFinish={onFinish}
+      layout="vertical"
+      style={{ maxWidth: "600px", margin: "0 auto" }}
+    >
+      <Tabs defaultActiveKey="1" items={tabItems} />
       <Form.Item>
-        <Button type="primary" htmlType="submit" onClick={onFinish()}>
+        <button className="bg-default text-white py-2 px-4 rounded" type="primary" htmlType="submit">
           Submit
-        </Button>
+        </button>
       </Form.Item>
     </Form>
   );
