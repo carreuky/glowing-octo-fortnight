@@ -1,11 +1,13 @@
 import React, { useCallback, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { LayoutDashboard, Store, Fuel, CircuitBoard } from "lucide-react";
+import { LayoutDashboard, Store, Fuel, ArrowRightLeft } from "lucide-react";
 import { BsEnvelopeAt, BsPersonCircle } from "react-icons/bs";
 import { BiLogOutCircle } from "react-icons/bi";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { IoAddCircle } from "react-icons/io5";
 import { FaCashRegister } from "react-icons/fa";
+import { GiExpense } from "react-icons/gi";
+
 
 export default function Sidebar({ show, setter }) {
   const location = useLocation();
@@ -130,11 +132,11 @@ export default function Sidebar({ show, setter }) {
             hasSubmenu
             // onClick={() => setIsProductsSubmenuOpen(!isProductsSubmenuOpen)}
           />
-          <MenuItem name="Gas" route="/lpg" icon={<Fuel />} />
+          <MenuItem name="Expenses" route="/expenses" icon={<GiExpense />} />
           <MenuItem
-            name="Electricals"
-            route="/electricals"
-            icon={<CircuitBoard />}
+            name="Transactions"
+            route="/records"
+            icon={<ArrowRightLeft />}
           />
           <MenuItem name="Contact" route="/contact" icon={<BsEnvelopeAt />} />
         </div>
