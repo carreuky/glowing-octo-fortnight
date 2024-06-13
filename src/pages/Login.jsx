@@ -10,7 +10,7 @@ export default function Login() {
       }}
     >
       {" "}
-      <div className="flex flex-col items-center justify-center lg:w-1/3 ">
+      <div className="lg:w-1/3 ">
         <div className="w-full m-auto bg-white rounded-lg px-8 py-4  ">
           <span className="flex justify-center text-[#d16415] pb-3">
             <img src="/inventory.png" alt="Logo" className="h-24 w-24" />
