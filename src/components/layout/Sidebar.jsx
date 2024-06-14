@@ -105,7 +105,7 @@ export default function Sidebar({ show, setter }) {
   return (
     <>
       <div
-        className={`${className}${appendClass} gap-10 bg-black`}
+        className={`${className}${appendClass} gap-10 bg-black h-screen`}
         style={{
           backgroundImage: `url(/svg/waves-haikei-blue.svg)`,
           backgroundSize: "cover",
@@ -152,12 +152,12 @@ export default function Sidebar({ show, setter }) {
               <span className="hidden text-xs text-center text-white xl:block 2xl:text-left">
                 bar@gmail.com
               </span>
-              <button className="flex mt-2 text-[#FF0000] gap-2">
+              <a href="/login" className="flex mt-2 text-[#FF0000] gap-2">
                 Log Out
                 <span className="text-2xl">
                   <BiLogOutCircle />
                 </span>
-              </button>
+              </a>
             </div>
           </div>
         </div>

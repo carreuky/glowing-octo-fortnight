@@ -12,7 +12,7 @@ export default function Layout({ children }) {
     const isLoginPage = location.pathname === '/login';
 
     return (
-        <div className="min-h-screen flex overflow-hidden">
+        <div className=" flex overflow-hidden">
             {!isLoginPage && (
                 <>
                     <MenuBarMobile setter={setShowSidebar} />
