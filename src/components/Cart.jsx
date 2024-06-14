@@ -1,12 +1,10 @@
-import React, { useState, useMemo,useContext } from "react";
+import React, { useState, useMemo, useContext } from "react";
 import { BiCartAdd } from "react-icons/bi";
 import { DatePicker } from "antd";
 import dayjs from "dayjs";
-import { Table, Button, InputNumber, Input, Form ,Radio} from "antd";
+import { Table, Button, InputNumber, Input, Form, Radio } from "antd";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import { CartContext } from "../context/CartProvider";
-
-
 
 export default function Cart() {
   //   const [selectedDate, setSelectedDate] = useState(dayjs());
@@ -35,8 +33,8 @@ export default function Cart() {
   //   },
   // ]);
   const { cart, setCart } = useContext(CartContext);
+  const [showBothAmounts, setShowBothAmounts] = useState(false);
 
-  console.log(cart)
 
   const handleDelete = (key) => {
     setCart(cart.filter((item) => item.key !== key));
@@ -72,6 +70,20 @@ export default function Cart() {
         return item;
       })
     );
+  };
+  const handlePaymentMethodChange = (e) => {
+    setShowBothAmounts(e.target.value === "both");
+  };
+  const onFinish = async (values) => {
+    const saleData = cart.map((item) => ({
+      ...item,
+      payment_method: values.paymentMethod,
+      // mpesa_amount: values.mpesaAmount || 0,
+      // cash_amount: values.cashAmount || 0,
+    }));
+
+    console.log(saleData)
+    setCart([])
   };
 
   const subtotal = useMemo(() => {
@@ -133,7 +145,6 @@ export default function Cart() {
     },
   ];
 
- 
   return (
     <div className="mt-4">
       <h1 className="flex gap-1 items-center mb-4">
@@ -166,19 +177,57 @@ export default function Cart() {
           Sub Total: Ksh {subtotal.toFixed(2)}/=
         </strong>
       </h2>
-      <Form className=""  >
-      <Form.Item className="" label="Payment Method">
-        <Radio.Group>
-          <Radio value="mpesa">Mpesa</Radio>
-          <Radio value="cash">Cash</Radio>
-        </Radio.Group>
-      </Form.Item>
-      <Form.Item>
-        <Button type="primary" htmlType="submit" className="bg-default hover:bg-default">
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
+      <Form
+        name="payment_form"
+        onFinish={onFinish}
+        layout="vertical"
+        disabled={cart?.length === 0}
+      >
+        <Form.Item
+          name="paymentMethod"
+          label="Payment Method"
+          rules={[
+            { required: true, message: "Please select a payment method!" },
+          ]}
+        >
+          <Radio.Group >
+            <Radio value="mpesa">Mpesa</Radio>
+            <Radio value="cash">Cash</Radio>
+            <Radio value="both">Both</Radio>
+          </Radio.Group>
+        </Form.Item>
+        {/* {showBothAmounts && (
+          <div className="flex gap-4">
+            <Form.Item
+              name="mpesaAmount"
+              label="Mpesa Amount"
+              rules={[
+                { required: true, message: "Please input the Mpesa amount!" },
+              ]}
+            >
+              <InputNumber min={0} style={{ width: "100%" }} />
+            </Form.Item>
+            <Form.Item
+              name="cashAmount"
+              label="Cash Amount"
+              rules={[
+                { required: true, message: "Please input the Cash amount!" },
+              ]}
+            >
+              <InputNumber min={0} style={{ width: "100%" }} />
+            </Form.Item>
+          </div>
+        )} */}
+        <Form.Item>
+          <Button
+            type="primary"
+            htmlType="submit"
+            className="bg-default hover:bg-default"
+          >
+            Submit
+          </Button>
+        </Form.Item>
+      </Form>
     </div>
   );
 }

@@ -6,7 +6,7 @@ import { BiLogOutCircle } from "react-icons/bi";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { IoAddCircle } from "react-icons/io5";
 import { FaCashRegister } from "react-icons/fa";
-import { GiExpense } from "react-icons/gi";
+import { GiExpense,GiReceiveMoney } from "react-icons/gi";
 
 
 export default function Sidebar({ show, setter }) {
@@ -28,7 +28,7 @@ export default function Sidebar({ show, setter }) {
         : "text-white/50 hover:text-white";
 
     return (
-      <div className="w-full">
+      <div className={`w-full  ${colorClass}`}>
         <Link
           to={route || "#"}
           onClick={() => {
@@ -39,7 +39,7 @@ export default function Sidebar({ show, setter }) {
               setter(false);
             }
           }}
-          className={`flex justify-between gap-1 [&>*]:my-auto text-md pl-6 py-3 border-b-[1px] border-b-white/10 ${colorClass}`}
+          className={`flex justify-between gap-1 [&>*]:my-auto text-md pl-6 py-2 border-b-[1px] border-b-white/10`}
         >
           <div className="flex items-center gap-1">
             <div className="text-xl flex [&>*]:mx-auto w-[30px]">{icon}</div>
@@ -105,7 +105,7 @@ export default function Sidebar({ show, setter }) {
   return (
     <>
       <div
-        className={`${className}${appendClass} gap-10 bg-black h-screen`}
+        className={`${className}${appendClass} gap-8 bg-black`}
         style={{
           backgroundImage: `url(/svg/waves-haikei-blue.svg)`,
           backgroundSize: "cover",
@@ -133,6 +133,7 @@ export default function Sidebar({ show, setter }) {
             // onClick={() => setIsProductsSubmenuOpen(!isProductsSubmenuOpen)}
           />
           <MenuItem name="Expenses" route="/expenses" icon={<GiExpense />} />
+          <MenuItem name="Sales" route="/sales" icon={<GiReceiveMoney />} />
           <MenuItem
             name="Transactions"
             route="/records"
@@ -152,12 +153,12 @@ export default function Sidebar({ show, setter }) {
               <span className="hidden text-xs text-center text-white xl:block 2xl:text-left">
                 bar@gmail.com
               </span>
-              <a href="/login" className="flex mt-2 text-[#FF0000] gap-2">
+              <button className="flex mt-2 text-[#FF0000] gap-2">
                 Log Out
                 <span className="text-2xl">
                   <BiLogOutCircle />
                 </span>
-              </a>
+              </button>
             </div>
           </div>
         </div>

@@ -5,11 +5,12 @@ import { Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Store from "./pages/Store";
 import Expenses from "./pages/Expenses";
-import Electricals from "./pages/Electricals";
+import Transactions from "./pages/Transactions";
 import Login from "./pages/Login";
 import Layout from "./components/layout/Layout";
 import AddProduct from "./pages/AddProduct";
 import SellProduct from "./pages/SellProduct";
+import Sales from "./pages/Sales";
 
 function App() {
   return (
@@ -23,7 +24,8 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/Products" element={<Store />} />
               <Route path="/expenses" element={<Expenses />} />
-              <Route path="/records" element={<Electricals />} />
+              <Route path="/records" element={<Transactions />} />
+              <Route path="/sales" element={<Sales />} />
               <Route path="products/add" element={<AddProduct />} />
               <Route path="products/sell" element={<SellProduct />} />
             </Routes>
