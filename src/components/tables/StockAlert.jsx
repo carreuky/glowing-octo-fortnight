@@ -5,10 +5,16 @@ import { Table, Tag } from 'antd';
 const { Column } = Table;
 
 const AlertTable = ({data}) => {
+
+  const filteredData = data.filter((item)=>{
+    return (
+      item.quantity < 5
+    )
+  })
    
 
   return (
-    <Table dataSource={data} rowKey="key">
+    <Table dataSource={filteredData} rowKey="key">
       <Table.Column
         title="No."
         key="number"
@@ -19,11 +25,11 @@ const AlertTable = ({data}) => {
       <Column title="Quantity" dataIndex="quantity" key="quantity" />
       <Column
         title="Alert Quantity"
-        dataIndex="alertQuantity"
-        key="alertQuantity"
+        dataIndex="quantity"
+        key="number"
         render={(text, record) => (
           <span>
-            {record.quantity < record.alertQuantity ? (
+            {record.quantity < 5 ? (
               <Tag color="red">Low Stock</Tag>
             ) : (
               <Tag color="green">In Stock</Tag>
