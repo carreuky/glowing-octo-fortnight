@@ -30,7 +30,7 @@ export default function Expenses() {
         <div className="px-4">
           <Modal
             title="Add Expense"
-            visible={isModalVisible}
+            open={isModalVisible}
             onOk={handleOk}
             onCancel={handleCancel}
             footer={null} // We will add a custom footer in the form itself

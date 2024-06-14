@@ -48,7 +48,6 @@ const ExpenseTable = () => {
     form.setFieldsValue({
       amount: '',
       category: '',
-      date: '',
       note: '',
       ...record,
       date: dayjs(record.date),
@@ -134,7 +133,7 @@ const ExpenseTable = () => {
   };
 
   const filteredData = data.filter((item) => {
-    if (!filteredDates.length) return true;
+    if (!filteredDates?.length) return true;
     const itemDate = dayjs(item.date);
     return itemDate.isAfter(filteredDates[0], 'day') && itemDate.isBefore(filteredDates[1], 'day');
   });

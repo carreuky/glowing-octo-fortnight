@@ -7,14 +7,29 @@ import BarChart from "../components/charts/BarChart";
 import PieChart from "../components/charts/PieChart";
 import { GiProfit } from "react-icons/gi";
 import StockAlert from "../components/StockAlert";
+import salesData from "../api/SalesData";
+import dayjs from 'dayjs';
+
+
 export default function Dashboard() {
+
+  const today = dayjs().format('YYYY-MM-DD');
+
+// Filter the sales data for today's date
+const todaysData = salesData.filter(item => item.sale_date === "2023-06-26");
+
+// Calculate the total summation for today's sales
+const totalSum = todaysData.reduce((sum, item) => sum += item.total, 0);
+const totalProfit = todaysData.reduce((sum, item) => sum += (item.buying_price * item.quantity), 0);
+// const totalPurchases = todaysData.reduce((sum, item) => sum += (item.buying_price * item.quantity), 0);
+
   return (
     <div className="">
       <h1 className="text-lg pb-2">Dashboard</h1>
       <div className="grid sm:grid-cols-3 grid-cols-1 gap-4">
-        <Card icon={<BsCart4 />} title="Todays Sales" number="56,000" />
+        <Card icon={<BsCart4 />} title="Todays Sales" number={totalSum} />
         <Card icon={<BsCartPlus />} title="Todays Purchases" number="16,000" />
-        <Card icon={<GiProfit />} title="Todays Profits" number="6,000" />
+        <Card icon={<GiProfit />} title="Todays Profits" number={totalProfit} />
         {/* <Card icon={<BsCart4 />} title="This Mon" number="6,000" /> */}
       </div>
       <div className="grid sm:grid-cols-4 grid-cols-1 gap-4 my-4 pt-4 ">

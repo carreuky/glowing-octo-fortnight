@@ -50,7 +50,7 @@ const ExpenseForm = ({ handleOk }) => {
         name="date"
         rules={[{ required: true, message: 'Please select a date!' }]}
       >
-        <DatePicker className="w-full" defaultValue={dayjs()} />
+        <DatePicker className="w-full" initialValues={dayjs()} />
       </Form.Item>
 
       <Form.Item
@@ -65,7 +65,7 @@ const ExpenseForm = ({ handleOk }) => {
       </Form.Item>
 
       <Form.Item>
-        <button type="primary" htmlType="submit" className="w-full bg-default text-lg text-white p-2 rounded">
+        <button type="primary" htmltype="submit" className="w-full bg-default text-lg text-white p-2 rounded">
           Submit
         </button>
       </Form.Item>

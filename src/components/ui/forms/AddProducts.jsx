@@ -121,7 +121,7 @@ const GasAndElectricalForm = () => {
     >
       <Tabs defaultActiveKey="1" items={tabItems} />
       <Form.Item>
-        <button className="bg-default text-white py-2 px-4 rounded" type="primary" htmlType="submit">
+        <button className="bg-default text-white py-2 px-4 rounded" type="primary" htmltype="submit">
           Submit
         </button>
       </Form.Item>

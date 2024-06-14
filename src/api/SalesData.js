@@ -31,11 +31,11 @@ const salesData = [
     },
     {
         key: "4",
-        name: "Product 4",
-        quantity: 3,
-        buying_price: 100,
-        selling_price: 150,
-        total: 450,
+        name: "Product 1",
+        quantity: 1,
+        buying_price: 97,
+        selling_price: 130,
+        total: 130,
         payment_method: "cash",
         sale_date: "2023-06-13"
     },
@@ -111,7 +111,7 @@ const salesData = [
     },
     {
         key: "12",
-        name: "Product 12",
+        name: "Product 9",
         quantity: 2,
         buying_price: 85,
         selling_price: 125,
@@ -121,11 +121,11 @@ const salesData = [
     },
     {
         key: "13",
-        name: "Product 13",
-        quantity: 1,
-        buying_price: 92,
+        name: "Product 3",
+        quantity: 2,
+        buying_price: 61,
         selling_price: 180,
-        total: 180,
+        total: 360,
         payment_method: "mpesa",
         sale_date: "2023-06-22"
     },
@@ -137,7 +137,7 @@ const salesData = [
         selling_price: 150,
         total: 450,
         payment_method: "cash",
-        sale_date: "2023-06-23"
+        sale_date: "2023-06-26"
     },
     {
         key: "15",
@@ -147,7 +147,27 @@ const salesData = [
         selling_price: 140,
         total: 280,
         payment_method: "both",
-        sale_date: "2023-06-24"
+        sale_date: "2023-06-26"
+    },
+    {
+        key: "16",
+        name: "Product 2",
+        quantity: 1,
+        buying_price: 98,
+        selling_price: 120,
+        total: 120,
+        payment_method: "mpesa",
+        sale_date: "2023-06-26"
+    },
+    {
+        key: "17",
+        name: "Product 1",
+        quantity: 2,
+        buying_price: 97,
+        selling_price: 135,
+        total: 270,
+        payment_method: "cash",
+        sale_date: "2023-06-26"
     }
 ];
 
