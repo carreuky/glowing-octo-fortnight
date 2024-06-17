@@ -76,7 +76,7 @@ const BarChart = () => {
     plotOptions: {
       bar: {
         horizontal: false,
-        columnWidth: '100%',
+        columnWidth: '50%',
         endingShape: 'rounded'
       }
     },
@@ -134,7 +134,7 @@ const BarChart = () => {
           <option value="1 month">1 Month</option>
         </select>
       </div>
-      <div className="text-center grid md:grid-cols-3 sm:grid-cols-1 my-2">
+      <div className="additional-info">
         <p>Total Sales: Ksh {chartData.totalSales}</p>
         <p>Total Profits: Ksh {chartData.totalProfits}</p>
         <p>Total Purchases: Ksh {chartData.totalPurchases}</p>

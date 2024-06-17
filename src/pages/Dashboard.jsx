@@ -12,16 +12,17 @@ import dayjs from 'dayjs';
 
 
 export default function Dashboard() {
-
   const today = dayjs().format('YYYY-MM-DD');
 
 // Filter the sales data for today's date
-const todaysData = salesData.filter(item => item.sale_date === "2023-06-26");
-
+const todaysData = salesData.filter(item => item.sale_date === "2023-05-31");
 // Calculate the total summation for today's sales
 const totalSum = todaysData.reduce((sum, item) => sum += item.total, 0);
 const totalProfit = todaysData.reduce((sum, item) => sum += (item.buying_price * item.quantity), 0);
 // const totalPurchases = todaysData.reduce((sum, item) => sum += (item.buying_price * item.quantity), 0);
+
+
+
 
   return (
     <div className="">

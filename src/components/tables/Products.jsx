@@ -225,12 +225,14 @@ const Products = () => {
     {
       title: "Buying Price",
       dataIndex: "buying_price",
+      render: (text) => `Ksh ${text}`,
       key: "buying_price",
       editable: true,
     },
     {
       title: "Selling Price",
       dataIndex: "selling_price",
+      render: (text) => `Ksh ${text}`,
       key: "selling_price",
       editable: true,
     },

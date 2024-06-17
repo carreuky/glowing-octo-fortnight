@@ -48,7 +48,7 @@ const count = top5Recurring.map((item)=>item.count)
 
 
   return (
-    <div className="flex flex-col items-center align-center shadow-md">
+    <div className="flex flex-col items-center align-center shadow-md pb-4">
       <h1 className="text-center">Top Selling Products.</h1>
       <Chart options={options} series={count} type="pie" height={350} />
     </div>
