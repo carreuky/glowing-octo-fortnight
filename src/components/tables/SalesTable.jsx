@@ -147,6 +147,7 @@ const SalesTable = () => {
     <div className="shadow-lg mt-4">
       <Table
         dataSource={filteredData}
+        size='medium'
         columns={columns}
         rowKey="key"
         pagination={{ pageSize: 10 }}

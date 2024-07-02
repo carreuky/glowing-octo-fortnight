@@ -170,7 +170,7 @@ export default function Cart() {
 
       <div className="shadow-lg">
         {" "}
-        <Table columns={columns} dataSource={cart} pagination={false} />
+        <Table columns={columns} dataSource={cart} pagination={false} size="small" />
       </div>
       <h2 className="mt-8 mb-3">
         <strong className="text-2xl">

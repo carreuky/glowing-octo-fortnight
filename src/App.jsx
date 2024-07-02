@@ -11,6 +11,7 @@ import Layout from "./components/layout/Layout";
 import AddProduct from "./pages/AddProduct";
 import SellProduct from "./pages/SellProduct";
 import Sales from "./pages/Sales";
+import Items from "./pages/Items";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
               <Route path="/records" element={<Transactions />} />
               <Route path="/sales" element={<Sales />} />
               <Route path="products/add" element={<AddProduct />} />
+              <Route path="add-items" element={<Items />} />
               <Route path="products/sell" element={<SellProduct />} />
             </Routes>
           </Layout>

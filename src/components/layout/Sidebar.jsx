@@ -4,7 +4,7 @@ import { LayoutDashboard, Store, Fuel, ArrowRightLeft } from "lucide-react";
 import { BsEnvelopeAt, BsPersonCircle } from "react-icons/bs";
 import { BiLogOutCircle } from "react-icons/bi";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-import { IoAddCircle } from "react-icons/io5";
+import { IoAddCircle,IoDuplicateOutline } from "react-icons/io5";
 import { FaCashRegister } from "react-icons/fa";
 import { GiExpense,GiReceiveMoney } from "react-icons/gi";
 
@@ -139,7 +139,7 @@ export default function Sidebar({ show, setter }) {
             route="/records"
             icon={<ArrowRightLeft />}
           />
-          <MenuItem name="Contact" route="/contact" icon={<BsEnvelopeAt />} />
+          <MenuItem name="Items" route="/add-items" icon={<IoDuplicateOutline />} />
         </div>
         <div className="flex flex-col items-center justify-center gap-0 2xl:gap-2 2xl:gap-x-4 2xl:flex-row xl:justify-start">
           <div className="flex-col items-center justify-center hidden px-0 lg:flex">
